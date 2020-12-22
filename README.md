@@ -1,7 +1,7 @@
 # Platformer2d
 
 
-`unity 2019.4.16`
+`unity 2019.4.16
 
 ## Player Mechanics
   - [x] run;
@@ -9,13 +9,13 @@
   - [x] double jump;
   - [ ] wall jump;
   - [ ] dash;
-  <!-- - [ ] climb; -->
-  <!-- - [ ] charge jump;
+  <!-- - [ ] climb;
+  - [ ] charge jump;
   - [ ] soft falling;
   - [ ] stomp;
   - [ ] hang;
-  - [ ] meele atack;
-  - [ ] shield; -->
+  - [ ] shootgun;
+  - [ ] meele atack; -->
 
 ## Plataformer
   - [ ] plataformer movement;
@@ -24,6 +24,6 @@
   - [ ] push/pull plataformer;
 
 ## Efect Zones
-	- [x] gravity zone;
-	- [x] time zone;
-	- [ ] wind zone;
+  - [x] gravity zone;
+  - [x] time zone;
+  - [ ] wind zone;
