@@ -10,6 +10,7 @@ public class CharacterGravity : CharacterHabilityBase
     [HideInInspector] public float _gravitForce;
     [HideInInspector] public float _currentGravitForce;
     [HideInInspector] public Vector2 _gravityDirection;
+    [HideInInspector] public float _gravityResistenceForce = 0;
     Vector2 currentGravity;
 
     public bool allowRotation = false;
@@ -28,8 +29,12 @@ public class CharacterGravity : CharacterHabilityBase
         CalcGravitDirection(_angle);
         float diferenceAngle = _lastEulerAnglesZ - transform.rotation.eulerAngles.z;
         currentGravity = Quaternion.Euler(new Vector3(0, 0, diferenceAngle)) * currentGravity;
-        currentGravity += (_gravityDirection * _gravitForce) / Time.timeScale;
-        _currentGravitForce += _gravitForce / Time.timeScale;
+        float tpmGravitForce = _gravitForce;
+        if (_gravityResistenceForce > 0) {
+            tpmGravitForce = _gravityResistenceForce;
+        }
+        currentGravity += (_gravityDirection * tpmGravitForce) / Time.timeScale;
+        _currentGravitForce += tpmGravitForce / Time.timeScale;
         
         _physicsController.AddVelocity(currentGravity);
         RotateCharacter();

@@ -9,7 +9,7 @@ public class PlayerWalk : CharacterHabilityBase
     public float accelerationTimeGrounded = 0.1f;
     public float accelerationTimeAirborne = 0.2f;
     Vector2 currentVelocity;
-    Vector2 movement;
+    [HideInInspector] public Vector2 movement;
 
     public override void EverFrame()
     {
@@ -31,6 +31,7 @@ public class PlayerWalk : CharacterHabilityBase
             speed = maxSpeed * (_collision.collisions.slopeAngle * slopeMultiplyPerAngle);
         }
 
+        
         movement = Vector2.SmoothDamp(movement, direction * speed, ref currentVelocity, accelerationTimeGrounded);
     }
 

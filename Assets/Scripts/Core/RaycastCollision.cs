@@ -95,28 +95,28 @@ public class RaycastCollision : MonoBehaviour
                 {
                     //continue;
                 }
-                //if (hit.collider.gameObject.GetComponent<ThroughPlatform>() != null)
-                //{
-                //    ThroughPlatform throughPlatform = hit.collider.gameObject.GetComponent<ThroughPlatform>();
-                //    if (throughPlatform.left && (directionX == 1 || hit.distance == 0))
-                //    {
-                //        continue;
-                //    }
-                //    if (throughPlatform.right && (directionX == -1 || hit.distance == 0))
-                //    {
-                //        continue;
-                //    }
-                //    if (collisions.fallingThroughPlatform)
-                //    {
-                //        continue;
-                //    }
-                //    //if (throughPlatform.VerifyFallingThroughPlatform() == true)
-                //    //{
-                //    //    collisions.fallingThroughPlatform = true;
-                //    //    Invoke("ResetFallingThroughPlatform", .5f);
-                //    //   continue;
-                //    //}
-                //}
+                if (hit.collider.gameObject.GetComponent<ThroughPlatform>() != null)
+                {
+                   ThroughPlatform throughPlatform = hit.collider.gameObject.GetComponent<ThroughPlatform>();
+                   if (throughPlatform.left && (directionX == 1 || hit.distance == 0))
+                   {
+                       continue;
+                   }
+                   if (throughPlatform.right && (directionX == -1 || hit.distance == 0))
+                   {
+                       continue;
+                   }
+                   if (collisions.fallingThroughPlatform)
+                   {
+                       continue;
+                   }
+                   //if (throughPlatform.VerifyFallingThroughPlatform() == true)
+                   //{
+                   //    collisions.fallingThroughPlatform = true;
+                   //    Invoke("ResetFallingThroughPlatform", .5f);
+                   //   continue;
+                   //}
+                }
 
                 float slopeAngle = Vector2.Angle(hit.normal, collisions.directionVectorUp);
                 
@@ -174,28 +174,28 @@ public class RaycastCollision : MonoBehaviour
                 {
                     //continue;
                 }
-                //if (hit.collider.gameObject.GetComponent<ThroughPlatform>() != null)
-                //{
-                //    ThroughPlatform throughPlatform = hit.collider.gameObject.GetComponent<ThroughPlatform>();
-                //    if (throughPlatform.bottom && (directionY == 1 || hit.distance == 0))
-                //    {
-                //        continue;
-                //    }
-                //    if (throughPlatform.top && (directionY == -1 || hit.distance == 0))
-                //    {
-                //        continue;
-                //    }
-                //    if (collisions.fallingThroughPlatform)
-                //    {
-                //        continue;
-                //    }
-                //    if (throughPlatform.VerifyFallingThroughPlatform() == true)
-                //    {
-                //        collisions.fallingThroughPlatform = true;
-                //        Invoke("ResetFallingThroughPlatform", .2f);
-                //        continue;
-                //    }
-                //}
+                if (hit.collider.gameObject.GetComponent<ThroughPlatform>() != null)
+                {
+                   ThroughPlatform throughPlatform = hit.collider.gameObject.GetComponent<ThroughPlatform>();
+                   if (throughPlatform.bottom && (directionY == 1 || hit.distance == 0))
+                   {
+                       continue;
+                   }
+                   if (throughPlatform.top && (directionY == -1 || hit.distance == 0))
+                   {
+                       continue;
+                   }
+                   if (collisions.fallingThroughPlatform)
+                   {
+                       continue;
+                   }
+                   if (throughPlatform.VerifyFallingThroughPlatform() == true)
+                   {
+                       collisions.fallingThroughPlatform = true;
+                       Invoke("ResetFallingThroughPlatform", .2f);
+                       continue;
+                   }
+                }
 
                 speed.y = (hit.distance - skinWidth) * directionY;
                 rayLength = hit.distance;

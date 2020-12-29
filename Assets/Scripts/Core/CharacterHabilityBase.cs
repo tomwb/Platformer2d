@@ -37,6 +37,16 @@ public class CharacterHabilityBase : MonoBehaviour
     {
     }
 
+    public virtual void BeforeCalculateCollisions()
+    {
+        
+    }
+
+    public virtual void AfterCalculateCollisions()
+    {
+        
+    }
+
     public virtual void AfterMove()
     {
     }

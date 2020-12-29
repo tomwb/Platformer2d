@@ -49,8 +49,21 @@ public class Physics2dController : MonoBehaviour
             {
                 characterHability.Move();
             }
+            foreach (CharacterHabilityBase characterHability in _allCharacterHabilitys)
+            {
+                characterHability.BeforeCalculateCollisions();
+            }
         }
-        Move();
+        CalculateMove();
+        if (_allCharacterHabilitys.Length > 0)
+        {
+            foreach (CharacterHabilityBase characterHability in _allCharacterHabilitys)
+            {
+                characterHability.AfterCalculateCollisions();
+            }
+        }
+
+        transform.Translate(_speed);
         if (_allCharacterHabilitys.Length > 0)
         {
             foreach (CharacterHabilityBase characterHability in _allCharacterHabilitys)
@@ -58,17 +71,14 @@ public class Physics2dController : MonoBehaviour
                 characterHability.AfterMove();
             }
         }
-
-        
         _speed = Vector2.zero;
     }
 
-    public void Move()
+    public void CalculateMove()
     {
         Vector2 moveAmount = (_speed * Time.fixedDeltaTime) / Time.timeScale / _time;
         
         _speed = _collision.CalculateCollisions(moveAmount);
-        transform.Translate(_speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -7,13 +7,14 @@ public class PlayerJump : CharacterHabilityBase
     public float maxJumpHeight = 4;
     public float minJumpHeight = 1;
     public float timeToJumpApex = .4f;
-    float maxJumpVelocity;
+    [HideInInspector] public float maxJumpVelocity;
     float minJumpVelocity;
-
     public int extraJumps = 1;
-    bool isJumping = false;
+
+    [HideInInspector] public bool isJumping = false;
     bool ableToJump = true;
-    int _curentJump = 0;
+    [HideInInspector] public int _curentJump = 0;
+    Vector2 _jumpDirection;
     float _jumpForce;
     CharacterGravity _characterGravity;
 
@@ -32,14 +33,10 @@ public class PlayerJump : CharacterHabilityBase
     public override void EverFrame()
     {
         base.EverFrame();
-
+        
         if (ableToJump && Input.GetKeyDown(KeyCode.Space))
         {
-            isJumping = true;
-            ableToJump = false;
-            _curentJump += 1;
-            _jumpForce = maxJumpVelocity;
-            _characterGravity.ClearCurrentGravity();
+            StartJump(Vector3.up, maxJumpVelocity);
         }
         // pulo minimo caso solte rapido
         if (Input.GetKeyUp(KeyCode.Space))
@@ -49,34 +46,48 @@ public class PlayerJump : CharacterHabilityBase
 
     }
 
+    public void StartJump(Vector3 jumpDirection, float jumpForce)
+    {
+        isJumping = true;
+        ableToJump = false;
+        _curentJump += 1;
+        _jumpDirection = jumpDirection;
+        _characterGravity.ClearCurrentGravity();
+        _jumpForce = jumpForce;
+    }
+
+    public void StopJump()
+    {
+        isJumping = false;
+        _characterGravity.ClearCurrentGravity();
+    }
+
     public override void Move()
     {
         base.Move();
+
         if (isJumping)
         {
-            Vector2 speed = (_characterGravity._gravityDirection * -1) * _jumpForce;
+            Vector2 speed = _jumpDirection * _jumpForce;
             _physicsController.AddVelocity(speed);
 
             if ((_jumpForce - _characterGravity._currentGravitForce) <= 0)
             {
-                _characterGravity.ClearCurrentGravity();
-                isJumping = false;
+              StopJump();
             }
         }
-
     }
 
     public override void AfterMove()
     {
         base.AfterMove();
         // caso tocar no chão ou no teto para de pular
-        if (_collision.collisions.below || _collision.collisions.above)
+        if (isJumping && (_collision.collisions.below || _collision.collisions.above))
         {
-            isJumping = false;
-            _characterGravity.ClearCurrentGravity();
+            StopJump();
         }
 
-        // caso tocar no chão zera os pulos
+        //caso tocar no chão zera os pulos
         if (_collision.collisions.below)
         {
             ableToJump = true;
